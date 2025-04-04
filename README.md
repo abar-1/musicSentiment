@@ -1,6 +1,4 @@
-# musicSentiment
-
-Engineering Project
+#Engineering Project
 
 1. Sentiment Analysis
 
