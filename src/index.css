@@ -1,0 +1,97 @@
+  /* Full page gradient background with flex layout */
+.app-container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #312e81, #6b21a8); /* from-indigo-900 to-purple-700 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  /* Inner content box */
+  .app-box {
+    background-color: rgba(255, 255, 255, 0.1); /* bg-opacity-10 */
+    backdrop-filter: blur(16px); /* lg blur */
+    border-radius: 1rem; /* rounded-xl */
+    padding: 2rem;
+    width: 100%;
+    max-width: 32rem; /* max-w-lg */
+  }
+  
+  /* Title styling */
+  .app-title {
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  /* Error message styling */
+  .error-message {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: rgba(239, 68, 68, 0.3); /* bg-red-500 + opacity */
+    color: white;
+    border-radius: 0.5rem;
+  }
+
+  /* Form container */
+/* Form container */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center; /* Center the content horizontally */
+    max-width: 600px; /* Optional, sets max width of the form */
+    margin: 0 auto; /* Centers the form horizontally */
+    padding: 1rem; /* Adds padding to the form */
+  }
+  
+  /* Description text */
+  .form-description {
+    color: white;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Textarea for mood input */
+  .mood-input {
+    width: 100%;
+    max-width: 100%; /* Ensure full width of the parent container */
+    padding: 1rem;
+    border-radius: 0.75rem; /* rounded-lg */
+    background-color: rgba(255, 255, 255, 0.2); /* bg-opacity-20 */
+    color: white;
+    placeholder-color: rgba(0, 0, 0, 0.5); /* placeholder-gray-300 */
+    resize: none;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .mood-input::placeholder {
+    color: black;
+    opacity: 0.9;
+  }
+  
+  .mood-input:focus {
+    border-color: #9333ea; 
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5); 
+  }
+  
+  /* Button styling */
+  .generate-btn {
+    background: linear-gradient(to right, #22c55e, #16a34a); /* from-green-400 to-green-600 */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem; /* rounded-lg */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    font-weight: 500; /* font-medium */
+  }
+  
+  .generate-btn:hover {
+    opacity: 0.9; 
+    transform: translateX(5px);
+  }

@@ -1,0 +1,41 @@
+.spinner-overlay {
+    position: fixed;
+    inset: 0; /* Ensures the spinner covers the entire screen */
+    display: flex;
+    align-items: center; /* Vertically centers the content */
+    justify-content: center; /* Horizontally centers the content */
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 50;
+}
+
+.spinner-box {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px); /* Slight blur effect */
+    border-radius: 0.5rem;
+    padding: 2rem;
+    display: flex; 
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Horizontally center the spinner circle */
+    justify-content: center; /* Ensure all items are centered vertically */
+}
+
+.spinner-circle {
+    width: 3rem;
+    height: 3rem;
+    border: 4px solid transparent;
+    border-top-color: #22c55e; /* Spinner color */
+    border-radius: 9999px; /* Make it circular */
+    animation: spin 1s linear infinite; /* Spin animation */
+    margin-bottom: 1rem;
+}
+
+.spinner-text {
+    color: white;
+    font-size: 1rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
