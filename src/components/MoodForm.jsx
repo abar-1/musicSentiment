@@ -1,21 +1,12 @@
 import React, { useState } from 'react';
 import '../index.css';
-import LoadingSpinner from './LoadingSpinner'; // Import the LoadingSpinner component
 
-function MoodForm() {
+function MoodForm({ onSubmit }) {
   const [moodText, setMoodText] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent the default form submission
-    
-    setLoading(true); // Show the loading spinner
-    
-    // Simulate a delay (3 seconds) before hiding the spinner and showing the result
-    setTimeout(() => {
-      setLoading(false); // Hide the loading spinner after the delay
-      // You can handle further actions here like generating a playlist or whatever
-    }, 3000); // 3 seconds delay
+    e.preventDefault();
+    onSubmit(moodText);
   };
 
   return (
@@ -35,9 +26,6 @@ function MoodForm() {
       <button type="submit" className="generate-btn">
         Generate My Playlist
       </button>
-
-      {/* Show loading spinner if loading is true */}
-      {loading && <LoadingSpinner />}
     </form>
   );
 }

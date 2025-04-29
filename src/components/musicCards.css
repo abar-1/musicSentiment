@@ -1,0 +1,64 @@
+.music-card {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    position: relative;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.musicCard {
+    flex: 1 1 calc(25% - 1rem);
+    max-width: calc(25% - 1rem);
+    box-sizing: border-box;
+}
+
+.music-card:hover {
+    transform: scale(1.05);
+}
+
+.music-card:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit; /* Take the background from the parent */
+    filter: blur(5px); /* Apply the blur effect */
+    z-index: -1;
+}
+
+
+.music-card-text {
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    text-shadow: 1px 1px 5px black;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.music-card-text {
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    text-shadow: 1px 1px 5px black;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.active {
+    border: 2px solid white;
+    size: 0.95;
+}
+
+

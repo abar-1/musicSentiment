@@ -4,10 +4,15 @@ import './index.css';
 import MoodForm from './components/MoodForm';
 import PlaylistResult from './components/PlaylistResult';
 import LoadingSpinner from './components/LoadingSpinner';
+import MusicCard from './components/MusicCard';
 
 function App() {
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(null);
+
+  const genres = [
+    { name: "R&B", img: "R&B.jpg" }
+  ];
 
   const generatePlaylist = (moodText) => {
     setLoading(true); // Show the spinner
@@ -24,16 +29,32 @@ function App() {
         ],
       };
 
-      setPlaylist(fakePlaylist); // Update playlist
-      setLoading(false); // Hide the spinner after 2 seconds
-    }, 2000); // 2 seconds delay
+      setPlaylist(fakePlaylist); 
+      setLoading(false); 
+    }, 2000); 
   };
 
   return (
-    <div className="app-container">
+    <div className="app-container invisible-scrollbar">
+      <div className="genre-selection">
+        <h1 className="genre-title">What Genre(s) of Music would you like to listen to?</h1>
+        <div className="musicCards">
+          <MusicCard text="R&B" imgName="R&B.jpg" />
+          <MusicCard text="Rock" imgName="rock.jpg" />
+          <MusicCard text="Pop" imgName="pop.jpg" />
+          <MusicCard text="Jazz" imgName = "jazz.jpg" />
+          <MusicCard text="Country" imgName = "country.jpg" />
+          <MusicCard text="Electronic" imgName="electronic.jpg" />
+          <MusicCard text="Hip-Hop" imgName ="hiphop.jpg" />
+          <MusicCard text="Urbano Latino" imgName="urbanolatino.jpg" />
+          <MusicCard text=""/>
+          {/* Add more MusicCard components here if needed */}
+        </div>
+    </div>
       <div className="app-box">
-        <h1 className="app-title">MoodMusic Playlist Generator</h1>
         
+        <h1 className="app-title">MoodMusic Playlist Generator</h1>
+
         {!playlist ? (
           <MoodForm onSubmit={generatePlaylist} />
         ) : (
