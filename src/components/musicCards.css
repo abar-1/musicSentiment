@@ -21,6 +21,12 @@
     box-sizing: border-box;
 }
 
+.music-card.active {
+    border: 2px solid white;
+    box-shadow: 0 0 10px 2px rgb(63, 59, 59);
+    transform: scale(0.95);
+}
+
 .music-card:hover {
     transform: scale(1.05);
 }
@@ -45,20 +51,6 @@
     text-shadow: 1px 1px 5px black;
     text-align: center;
     padding: 0.5rem;
-}
-
-.music-card-text {
-    color: white;
-    font-size: large;
-    font-weight: bold;
-    text-shadow: 1px 1px 5px black;
-    text-align: center;
-    padding: 0.5rem;
-}
-
-.active {
-    border: 2px solid white;
-    size: 0.95;
 }
 
 

@@ -4,15 +4,28 @@ import './index.css';
 import MoodForm from './components/MoodForm';
 import PlaylistResult from './components/PlaylistResult';
 import LoadingSpinner from './components/LoadingSpinner';
-import MusicCard from './components/MusicCard';
+import MusicCard from './components/musicCard';
 
 function App() {
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(null);
+  
 
   const genres = [
-    { name: "R&B", img: "R&B.jpg" }
+    { name: "R&B", img: "r&b.jpg" },
+    { name: "Rock", img: "rock.jpg"},
+    { name: "Pop", img: "pop.jpg"},
+    { name: "Jazz", img: "jazz.jpg"},
+    { name: "Country", img: "country.jpg"},
+    { name: "Electronic", img: "electronic.jpg"},
+    { name: "Hip-Hop", img: "hiphop.jpg"},
+    { name: "Urbano Latino", img: "urbanolatino.jpg"},
+    { name: "Pop-Rap", img: "poprap.jpg"},
+    { name: "Indie", img:"indie.jpg"},
+    { name: "Trap", img: "trap.jpg"},
+    { name: "K-Pop", img: "kpop.jpg"}
   ];
+
 
   const generatePlaylist = (moodText) => {
     setLoading(true); // Show the spinner
@@ -39,16 +52,10 @@ function App() {
       <div className="genre-selection">
         <h1 className="genre-title">What Genre(s) of Music would you like to listen to?</h1>
         <div className="musicCards">
-          <MusicCard text="R&B" imgName="R&B.jpg" />
-          <MusicCard text="Rock" imgName="rock.jpg" />
-          <MusicCard text="Pop" imgName="pop.jpg" />
-          <MusicCard text="Jazz" imgName = "jazz.jpg" />
-          <MusicCard text="Country" imgName = "country.jpg" />
-          <MusicCard text="Electronic" imgName="electronic.jpg" />
-          <MusicCard text="Hip-Hop" imgName ="hiphop.jpg" />
-          <MusicCard text="Urbano Latino" imgName="urbanolatino.jpg" />
-          <MusicCard text=""/>
-          {/* Add more MusicCard components here if needed */}
+          
+          {genres.map(({name, img}) => (
+            <MusicCard key={name} text={name} imgName={img}/>
+          ))}
         </div>
     </div>
       <div className="app-box">

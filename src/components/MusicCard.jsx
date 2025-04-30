@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react'
+import { useRef } from 'react';
 import './musicCards.css';
 
-function MusicCard({imgName, text, onClick}) {
-    const imagePath = `/src/assets/${imgName}`; 
-    const message = text;
+function MusicCard({ imgName, text, onClick }) {
+    const imagePath = `/assets/${imgName}`; 
+    const [isActive, setIsActive] = useState(false);;
 
-    return(
-        <div className="musicCard">
-            <button 
-            className="music-card" 
-            style={{ backgroundImage: `url(${imagePath})` }}
-            onClick={onClick}
+    const handleCardClick = () => {
+      setIsActive(prev => !prev);
+      console.log("Test");
+    }
+    
+    return (
+      <div className="musicCard">
+        <button
+          className= {`music-card ${isActive ? 'active' : ''}`}
+          style={{ backgroundImage: `url(${imagePath})` }}
+          onClick={handleCardClick}
         >
-            <p className="music-card-text">{text}</p>
+          <p className="music-card-text">{text}</p>
         </button>
-            
-        </div>
+      </div>
     );
 }
+  
 
 export default MusicCard;
