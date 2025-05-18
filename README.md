@@ -1,6 +1,4 @@
-
-
-#Engineering Project
+Engineering Project
 
 1. Sentiment Analysis
 
@@ -10,6 +8,6 @@
 
 Things To Do 
 ==============================
-1. Finish adding all music cards with various top 50 genres from spotify
-2. Start connecting front end to back end
-3. 
+1. Feed frames of the webcam into the machine learning model.
+2. Implement K Means when give mood.
+3. Recommend a few songs from spotify dataset and then use spotify recommendation system to give more songs and make a playlist
