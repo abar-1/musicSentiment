@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '../spinner.css'
 
 const LoadingSpinner = () => {
@@ -6,7 +6,7 @@ const LoadingSpinner = () => {
     <div className="spinner-overlay">
       <div className="spinner-box">
         <div className="spinner-circle"></div>
-        <div className="spinner-text">Creating your perfect playlist...</div>
+        <div className="spinner-text">Loading...</div>
       </div>
     </div>
   );

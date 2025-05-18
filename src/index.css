@@ -14,6 +14,7 @@
     font-size: 2rem;
     color: #ffffff;
     margin-bottom: 1rem;
+    width: 70vh;
   }
   
   .musicCards {
@@ -25,7 +26,38 @@
     margin: 0 auto;
   }
 
-  
+  .center-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .webcam {
+    border-radius: 10px;
+    width: 60vh;
+  }
+
+  .toggle-btn {
+    background: linear-gradient(to right, #2d22c5, #123563); 
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem; /* rounded-lg */
+    border: rgb(12, 17, 31);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    font-weight: 500; /* font-medium */
+    align-items: center;
+    justify-content: center;
+    width: 40vh;
+    margin-top: 10px;
+  }
+  .toggle-btn:active {
+    transform: scale(0.95);
+    background-color:#16a34a;
+  }
 
   .invisible-scrollbar::-webkit-scrollbar {
     display: none;
@@ -35,9 +67,20 @@
     min-height: 100vh;
     background: linear-gradient(to bottom right, #262629, #280649); /* from-indigo-900 to-purple-700 */
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 10vh;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
+  }
+  .container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom right, #262629, #280649); /* from-indigo-900 to-purple-700 */
+    align-items: center;
+    justify-content: center;
+    margin: auto;
     padding: 1rem;
   }
   
@@ -90,7 +133,7 @@
   /* Textarea for mood input */
   .mood-input {
     width: 100%;
-    max-width: 100%; /* Ensure full width of the parent container */
+    max-width: 100%; /* Enre full width of the parent container */
     padding: 1rem;
     border-radius: 0.75rem; 
     background-color: rgba(255, 255, 255, 0.2); 
@@ -109,10 +152,6 @@
     opacity: 0.9;
   }
   
-  .mood-input:focus {
-    border-color: #9333ea; 
-    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5); 
-  }
   
   /* Button styling */
   .generate-btn {
@@ -122,7 +161,9 @@
     border-radius: 0.75rem; /* rounded-lg */
     cursor: pointer;
     transition: transform 0.3s ease;
-    font-weight: 500; /* font-medium */
+    font-weight: 500; 
+    width: 50vh;
+  
   }
   
   .generate-btn:hover {

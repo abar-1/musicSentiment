@@ -22,10 +22,10 @@ function MoodForm({ onSubmit }) {
         value={moodText}
         onChange={(e) => setMoodText(e.target.value)}
       />
-      
       <button type="submit" className="generate-btn">
         Generate My Playlist
       </button>
+      
     </form>
   );
 }
