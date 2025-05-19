@@ -66,14 +66,19 @@ def emotion_recog_webcam(model):
     # Start video capture from webcam
     cap = cv2.VideoCapture(0)
 
+    start_time = time.time()
+    emotions = []
+
     # Reset emotion stability variables
     global current_emotion, emotion_start_time
     current_emotion = None
     emotion_start_time = time.time()
+  
+    elapsed_time = 0
 
     print("Press 'q' to exit")
 
-    while True:
+    while time.time() - start_time <= 10:
         # Read a frame from the webcam
         ret, frame = cap.read()
 
@@ -83,6 +88,9 @@ def emotion_recog_webcam(model):
 
         # Process the frame and detect emotions with stability
         result_frame = detect_emotion_with_stability(frame, model)
+
+        if current_emotion is not None:
+            emotions.append(current_emotion)
 
         # Display the result
         cv2.namedWindow("Mood Analysis", cv2.WINDOW_NORMAL) 
@@ -95,6 +103,13 @@ def emotion_recog_webcam(model):
     # Release the webcam and close windows
     cap.release()
     cv2.destroyAllWindows()
+    if not emotions: 
+        return "No emotions detected"
+
+    from collections import Counter
+    counts = Counter(emotions)
+    result = f"Detected emotion is: {counts.most_common(1)[0][0]}"
+    return counts.most_common(1)[0][0]
 
 # For single image emotion recognition
 def emotion_recog(frame, model):

@@ -10,7 +10,7 @@ import subprocess
 
 
 app = Flask(__name__) 
-CORS(app, origins=['http://localhost:5173'])
+CORS(app)
 
 # Initialize global variables
 model = None
@@ -44,9 +44,9 @@ def run_python():
     script_path = data['script_path']
     try:
         result = emotion_recog_webcam(model)
-        return jsonify({'output': result.stdout, 'error': result.stderr})
+        return jsonify({'output': result, 'error': None})
     except subprocess.CalledProcessError as e:
-         return jsonify({'output': e.stdout, 'error': e.stderr}), 500
+         return jsonify({'output': None, 'error': str(e)}), 500
     except FileNotFoundError:
         return jsonify({'error': 'Python script not found'}), 404
 
