@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import '../index.css';
 
-function MoodAnalysis({ modelReady, startAnalysis, loading }) {
+function MoodAnalysis({ modelReady, startAnalysis, loading, detectedEmotion }) {
   const [analyzeClicked, setAnalyzeClicked] = useState(false);
 
   useEffect(() => {
@@ -32,6 +32,12 @@ function MoodAnalysis({ modelReady, startAnalysis, loading }) {
         Analyze My Facial Expression
       </button>
       {loading && <LoadingSpinner />}
+      {detectedEmotion && (
+        <div className="detected-emotion">
+          <h3>Detected Emotion:</h3>
+          <p className="emotion-text">{detectedEmotion}</p>
+        </div>
+      )}
     </div>
   );
 }

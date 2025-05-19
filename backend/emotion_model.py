@@ -6,7 +6,7 @@ from tensorflow.keras.layers import Conv2D
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.layers import MaxPooling2D
 
-emotion_threshold = 1.5  # seconds to confirm new emotion
+emotion_threshold = 1.5  
 current_emotion = None
 emotion_start_time = time.time()
 

@@ -1,20 +1,26 @@
-import React, { useState } from 'react'
-import { useRef } from 'react';
+import React from 'react';
 import './musicCards.css';
 
-function MusicCard({ imgName, text, onClick }) {
+function MusicCard({ imgName, text, onSelect, isSelected }) {
     const imagePath = `/assets/${imgName}`; 
-    const [isActive, setIsActive] = useState(false);;
 
     const handleCardClick = () => {
-      setIsActive(prev => !prev);
-      console.log("Test");
+      try {
+        console.log('Card clicked:', { text, isSelected, onSelect }); // Debug log
+        if (typeof onSelect === 'function') {
+          onSelect(!isSelected);
+        } else {
+          console.error('onSelect is not a function:', onSelect);
+        }
+      } catch (error) {
+        console.error('Error in handleCardClick:', error);
+      }
     }
     
     return (
       <div className="musicCard">
         <button
-          className= {`music-card ${isActive ? 'active' : ''}`}
+          className={`music-card ${isSelected ? 'active' : ''}`}
           style={{ backgroundImage: `url(${imagePath})` }}
           onClick={handleCardClick}
         >
@@ -23,6 +29,5 @@ function MusicCard({ imgName, text, onClick }) {
       </div>
     );
 }
-  
 
 export default MusicCard;
