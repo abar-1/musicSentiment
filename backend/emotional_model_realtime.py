@@ -1,42 +1,9 @@
 import cv2, time, os
+
+from emotional_model_core import make_model, detect_emotion_with_stability
 import numpy as np
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, Flatten
-from tensorflow.keras.layers import Conv2D
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.layers import MaxPooling2D
 
-emotion_threshold = 1.5  # seconds to confirm new emotion
-current_emotion = None
-emotion_start_time = time.time()
-
-model = Sequential()
-
-def make_model():
-    model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(48,48,1)))
-    model.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    model.add(Conv2D(128, kernel_size=(3, 3), activation='relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(128, kernel_size=(3, 3), activation='relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    model.add(Flatten())
-    model.add(Dense(1024, activation='relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(4, activation='softmax'))
-
-    # Compile the model
-    model.compile(loss='sparse_categorical_crossentropy',
-                optimizer=Adam(learning_rate=0.0001),
-                metrics=['accuracy'])
-    
-    return model
-
-
+emotion_threshold = 1
 def detect_emotion_with_stability(frame, model):
     """Detect emotions in a frame with time-based stability"""
     global current_emotion, emotion_start_time, emotion_threshold
@@ -95,9 +62,7 @@ def detect_emotion_with_stability(frame, model):
 
     return frame
 
-def emotion_recog_webcam():
-    
-
+def emotion_recog_webcam(model):
     # Start video capture from webcam
     cap = cv2.VideoCapture(0)
 
@@ -132,19 +97,12 @@ def emotion_recog_webcam():
     cv2.destroyAllWindows()
 
 # For single image emotion recognition
-def emotion_recog(frame):
+def emotion_recog(frame, model):
     """Emotion recognition for a single frame"""
     # Load the model weights
     if not os.path.exists('model_weights_training_optimal.h5'):
         print("No model weights found. Please train the model first.")
         return frame
 
-    model.load_weights('model_weights_training_optimal.h5')
-
     # Process the frame with the stability logic
     return detect_emotion_with_stability(frame, model)
-
-# If running as main script
-if __name__ == "__main__":
-    # Call the function to start real-time recognition
-    emotion_recog_webcam()

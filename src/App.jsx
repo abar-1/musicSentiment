@@ -11,8 +11,8 @@ import MoodAnalysis from './components/MoodAnalysis';
 function App() {
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(null);
+  const [modelReady, setModelReady] = useState(false);
   
-
   const genres = [
     { name: "R&B", img: "r&b.jpg" },
     { name: "Rock", img: "rock.jpg"},
@@ -28,25 +28,62 @@ function App() {
     { name: "K-Pop", img: "kpop.jpg"}
   ];
 
-  const generatePlaylist = (moodText) => {
-    setLoading(true); // Show the spinner
+  const startAnalysis = async() => {
+    console.log("Starting analysis");
+    setLoading(true);  // Set loading to true when starting analysis
 
-    // Simulate a delay of 2 seconds (2000ms)
-    setTimeout(() => {
-      // Simulate a playlist based on the moodText
-      const fakePlaylist = {
-        mood: moodText,
-        songs: [
-          { title: "Feel Good Inc.", artist: "Gorillaz" },
-          { title: "Happy", artist: "Pharrell Williams" },
-          { title: "Uptown Funk", artist: "Bruno Mars" }
-        ],
-      };
+    try {
+      const response = await fetch('http://localhost:5000/run_python', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ script_path: "emotional_model.py" }),
+      });
 
-      setPlaylist(fakePlaylist); 
-      setLoading(false); 
-    }, 2000); 
+      const data = await response.json();
+      if (response.ok) {
+           console.log('Python script output:', data.output);
+      } else {
+          console.error('Error running Python script:', data.error)
+      }
+    } catch (error) {
+      console.error('Failed to call the server:', error);
+    } finally {
+      setLoading(false);  // Set loading to false when done
+    }
   };
+
+  useEffect(() => {
+    let mounted = true;  // Add mounted flag
+    
+    const checkModelReady = async() => {
+      if (!mounted) return;  // Don't proceed if component unmounted
+      
+      try {
+        const res = await fetch('http://localhost:5000/warmup');
+        const data = await res.json();
+        if (data.status === "Ready") {
+          console.log("Model Ready!")
+          setModelReady(true);
+          
+        } else {
+          setTimeout(checkModelReady, 2000);
+        }
+      } catch(error) {
+        console.error("Error warming up model: ", error);
+        setTimeout(checkModelReady, 2000);
+      }
+    };
+
+    if(!modelReady) {
+      checkModelReady();
+    }
+
+    return () => {
+      mounted = false;  // Cleanup on unmount
+    };
+  }, [modelReady]);
 
   return (
     <div className="container">  
@@ -62,22 +99,14 @@ function App() {
       </div>
         
       <div className="app-box">
-      
-        <MoodAnalysis />
-        
         <h1 className="app-title">MoodMusic Playlist Generator</h1>
-          
-        {!playlist ? (
-          <MoodForm onSubmit={generatePlaylist} />
-          ) : (
-          <PlaylistResult 
-            playlist={playlist} 
-            onCreateNew={() => setPlaylist(null)} 
-          />
-        )}
-          
-          {loading && <LoadingSpinner />}
-        </div>
+        <MoodAnalysis 
+          modelReady={modelReady} 
+          startAnalysis={startAnalysis}
+          loading={loading}
+        />          
+        {loading && <LoadingSpinner />}
+      </div>
         
       </div>
       
