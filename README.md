@@ -1,13 +1,19 @@
-Engineering Project
+This project aims to match users with new songs they haven't listened to by using their current mood and different genres that they want to listen to. 
 
-1. Sentiment Analysis
+There are interactive cards that represent different genres which the user can select and then they get their emotion analyzed in real-time. Subsequently, a song is recommended based on these two inputs and put added to a playlist. After 20 songs are added to the playlist the link to the playlist is shared and the user can easily use the playlist and add it to their account. 
 
-2. Song Match
+# Installation Guide
 
-3. Playlist formation
+### Clone the repository
 
-Things To Do 
-==============================
-1. Feed frames of the webcam into the machine learning model.
-2. Implement K Means when give mood.
-3. Recommend a few songs from spotify dataset and then use spotify recommendation system to give more songs and make a playlist
+### Start the Flask backend server:
+```
+cd backend
+python app.py
+```
+
+### Start the frontend server:
+```
+npm install
+npm run dev
+```
