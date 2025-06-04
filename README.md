@@ -1,13 +1,5 @@
-Engineering Project
+An ML based web-app that generates a playlist for the user in their spotify account using their detected mood and choice of genre(s). Used Flask, React.js, CSS, and Python. 
 
-1. Sentiment Analysis
-
-2. Song Match
-
-3. Playlist formation
-
-Things To Do 
-==============================
-1. Feed frames of the webcam into the machine learning model.
-2. Implement K Means when give mood.
-3. Recommend a few songs from spotify dataset and then use spotify recommendation system to give more songs and make a playlist
+TO-DO:
+1. Add database download script or put it in remote database (SQL)
+2. Improve UX
