@@ -6,7 +6,6 @@ function MusicCard({ imgName, text, onSelect, isSelected }) {
 
     const handleCardClick = () => {
       try {
-        console.log('Card clicked:', { text, isSelected, onSelect }); // Debug log
         if (typeof onSelect === 'function') {
           onSelect(!isSelected);
         } else {

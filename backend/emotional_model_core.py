@@ -28,29 +28,29 @@ def make_model():
                   metrics=['accuracy'])
     return model
 
-def detect_emotion_with_stability(frame, model, state):
-    """Detect emotion with time-based stability."""
-    current_emotion, emotion_start_time = state
+def detect_emotion(frame, model, state, threshold=1.0):
+    """Detect emotion in a frame. State = (current_emotion, start_time)"""
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     facecasc = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
     faces = facecasc.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
 
+    current_emotion, emotion_start_time = state
+
     for (x, y, w, h) in faces:
         roi_gray = gray[y:y+h, x:x+w]
-        try:
-            cropped_img = np.expand_dims(np.expand_dims(cv2.resize(roi_gray, (48, 48)), -1), 0) / 255.0
-            prediction = model.predict(cropped_img, verbose=0)
-            maxindex = int(np.argmax(prediction))
-            detected_emotion = emotion_dict[maxindex]
-            confidence = float(prediction[0][maxindex])
-            now = time.time()
-            if current_emotion is None or current_emotion != detected_emotion:
-                if now - emotion_start_time >= 1.5:
-                    current_emotion = detected_emotion
-                    emotion_start_time = now
-            display_text = f"{current_emotion} ({confidence:.2f})"
-            cv2.putText(frame, display_text, (x+20, y-60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
-        except:
-            continue
+        cropped = cv2.resize(roi_gray, (48, 48)).reshape(1,48,48,1)/255.0
+        pred = model.predict(cropped, verbose=0)
+        maxidx = int(np.argmax(pred))
+        detected = {0:"Angry",1:"Happy",2:"Sad",3:"Calm"}[maxidx]
+        conf = float(pred[0][maxidx])
+
+        now = time.time()
+        if current_emotion != detected or current_emotion is None:
+            if now - emotion_start_time >= threshold:
+                current_emotion = detected
+                emotion_start_time = now
+
+        cv2.putText(frame, f"{current_emotion} ({conf:.2f})", (x, y-10),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,255,255), 2)
 
     return frame, (current_emotion, emotion_start_time)

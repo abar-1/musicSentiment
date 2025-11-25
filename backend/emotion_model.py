@@ -10,9 +10,10 @@ emotion_threshold = 1.5
 current_emotion = None
 emotion_start_time = time.time()
 
-model = Sequential()
+
 
 def make_model():
+    model = Sequential()
     model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(48,48,1)))
     model.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
@@ -84,7 +85,7 @@ def detect_emotion_with_stability(frame, model):
                     current_emotion = detected_emotion
                     emotion_start_time = current_time
                 # If not consistent for threshold time, keep current emotion
-            # Same emotion detected - do nothing, keep current emotion
+            # Same emotion detected, do nothing, keep current emotion
 
             # Display the emotion with confidence
             display_text = f"{current_emotion} ({confidence:.2f})"
@@ -95,9 +96,7 @@ def detect_emotion_with_stability(frame, model):
 
     return frame
 
-def emotion_recog_webcam():
-    
-
+def emotion_recog_webcam(model):
     # Start video capture from webcam
     cap = cv2.VideoCapture(0)
 
@@ -132,7 +131,7 @@ def emotion_recog_webcam():
     cv2.destroyAllWindows()
 
 # For single image emotion recognition
-def emotion_recog(frame):
+def emotion_recog(frame, model):
     """Emotion recognition for a single frame"""
     # Load the model weights
     if not os.path.exists('model_weights_training_optimal.h5'):
@@ -144,7 +143,5 @@ def emotion_recog(frame):
     # Process the frame with the stability logic
     return detect_emotion_with_stability(frame, model)
 
-# If running as main script
 if __name__ == "__main__":
-    # Call the function to start real-time recognition
-    emotion_recog_webcam()
+    emotion_recog_webcam(make_model())
